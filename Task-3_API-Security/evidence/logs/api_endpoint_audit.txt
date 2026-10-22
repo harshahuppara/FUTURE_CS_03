@@ -1,0 +1,245 @@
+============================================================
+API SECURITY ENDPOINT AUDIT LOG
+Target Base: https://reqres.in
+Audit Date: 2026-10-22 16:04:54
+============================================================
+
+Endpoint: List Users [GET /api/users?page=1]
+HTTP Status: 200
+Response Headers:
+  Date: Thu, 22 Oct 2026 10:34:56 GMT
+  Content-Type: application/json; charset=utf-8
+  Content-Length: 1586
+  Connection: close
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=14400, s-maxage=60
+  cdn-cache-control: max-age=60
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+  etag: W/"632-mcl3HMKGEbHI6NajgL9yGawVtkY"
+  Nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+  Origin-Agent-Cluster: ?1
+  Ratelimit-Limit: 20
+  Ratelimit-Policy: 20;w=60
+  Ratelimit-Remaining: 19
+  Ratelimit-Reset: 60
+  Referrer-Policy: strict-origin-when-cross-origin
+  Report-To: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=%2F9sUf7MFy%2Fq9IWs7SeuIfODgerA0hIwT9CVwkcxoeHg%3D\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\u0026ts=1792664744"}],"max_age":3600}
+  Reporting-Endpoints: heroku-nel="https://nel.heroku.com/reports?s=%2F9sUf7MFy%2Fq9IWs7SeuIfODgerA0hIwT9CVwkcxoeHg%3D&sid=c4c9725f-1ab0-44d8-820f-430df2718e11&ts=1792664744"
+  Server: cloudflare
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Via: 1.1 heroku-router
+  X-Content-Type-Options: nosniff
+  X-Dns-Prefetch-Control: off
+  X-Download-Options: noopen
+  X-Frame-Options: DENY
+  X-Permitted-Cross-Domain-Policies: none
+  X-Powered-By: ReqRes.in - Deploy backends in 30 seconds
+  X-Ratelimit-Limit: 40
+  X-Ratelimit-Remaining: 38
+  X-Ratelimit-Reset: 1792713600
+  X-Reqres-Docs: https://reqres.in
+  X-Reqres-Message: This API is powered by ReqRes. Deploy your own backend in 30 seconds!
+  X-Reqres-Templates: https://app.reqres.in/templates
+  X-Reqres-Tip: Generate a complete backend from a description - app.reqres.in/dashboard
+  X-Reqres-Upgrade: https://app.reqres.in/upgrade
+  X-Request-Id: 396145ce-63bb-921e-72da-7715fa29d87a
+  X-Robots-Tag: noindex, nofollow
+  X-Xss-Protection: 0
+  Accept-Ranges: bytes
+  cf-cache-status: REVALIDATED
+  CF-RAY: a4e7da366cca7f1f-MAA
+Response Body (Preview):
+  {"page": 1, "per_page": 6, "total": 12, "total_pages": 2, "data": [{"id": 1, "email": "george.bluth@reqres.in", "first_name": "George", "last_name": "Bluth", "avatar": "https://reqres.in/img/faces/1-image.jpg"}, {"id": 2, "email": "janet.weaver@reqres.in", "first_name": "Janet", "last_name": "Weaver
+------------------------------------------------------------
+
+Endpoint: Single User Record (ID: 2) [GET /api/users/2]
+HTTP Status: 200
+Response Headers:
+  Date: Thu, 22 Oct 2026 10:34:57 GMT
+  Content-Type: application/json; charset=utf-8
+  Content-Length: 870
+  Connection: close
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=14400, s-maxage=60
+  Cdn-Cache-Control: max-age=60
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+  Etag: W/"366-sq6XCHe4iHgEpYvTSKwiUmngq8Y"
+  Nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+  Origin-Agent-Cluster: ?1
+  Ratelimit-Limit: 20
+  Ratelimit-Policy: 20;w=60
+  Ratelimit-Remaining: 19
+  Ratelimit-Reset: 60
+  Referrer-Policy: strict-origin-when-cross-origin
+  Report-To: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=DaQw%2FzsMyRXrJSVwSwPw0YJ5tpdQELqlZMSnHDIi6FQ%3D\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\u0026ts=1792665250"}],"max_age":3600}
+  Reporting-Endpoints: heroku-nel="https://nel.heroku.com/reports?s=DaQw%2FzsMyRXrJSVwSwPw0YJ5tpdQELqlZMSnHDIi6FQ%3D&sid=c4c9725f-1ab0-44d8-820f-430df2718e11&ts=1792665250"
+  Server: cloudflare
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Via: 1.1 heroku-router
+  X-Content-Type-Options: nosniff
+  X-Dns-Prefetch-Control: off
+  X-Download-Options: noopen
+  X-Frame-Options: DENY
+  X-Permitted-Cross-Domain-Policies: none
+  X-Powered-By: ReqRes.in - Deploy backends in 30 seconds
+  X-Ratelimit-Limit: 40
+  X-Ratelimit-Remaining: 31
+  X-Ratelimit-Reset: 1792713600
+  X-Reqres-Docs: https://reqres.in
+  X-Reqres-Message: This API is powered by ReqRes. Deploy your own backend in 30 seconds!
+  X-Reqres-Templates: https://app.reqres.in/templates
+  X-Reqres-Tip: Build with your own data, not fixtures - app.reqres.in/dashboard
+  X-Reqres-Upgrade: https://app.reqres.in/upgrade
+  X-Request-Id: 41ed1fa4-60f8-5c5e-0b17-0d31e1e4df31
+  X-Robots-Tag: noindex, nofollow
+  X-Xss-Protection: 0
+  Age: 46
+  Accept-Ranges: bytes
+  cf-cache-status: HIT
+  CF-RAY: a4e7da3bfea2b0da-MAA
+Response Body (Preview):
+  {"data": {"id": 2, "email": "janet.weaver@reqres.in", "first_name": "Janet", "last_name": "Weaver", "avatar": "https://reqres.in/img/faces/2-image.jpg"}, "support": {"url": "https://reqres.in/go/mcp", "text": "Give your AI agent a real backend with no signup: persistent data and API keys in one call
+------------------------------------------------------------
+
+Endpoint: Sequential User ID Enumeration (ID: 1) [GET /api/users/1]
+HTTP Status: 200
+Response Headers:
+  Date: Thu, 22 Oct 2026 10:34:58 GMT
+  Content-Type: application/json; charset=utf-8
+  Content-Length: 870
+  Connection: close
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=14400, s-maxage=60
+  Cdn-Cache-Control: max-age=60
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+  Etag: W/"366-I0iJMCVYQo6Qz3JRU6DSy+g/SV8"
+  Nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+  Origin-Agent-Cluster: ?1
+  Ratelimit-Limit: 20
+  Ratelimit-Policy: 20;w=60
+  Ratelimit-Remaining: 19
+  Ratelimit-Reset: 60
+  Referrer-Policy: strict-origin-when-cross-origin
+  Report-To: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=U8zkCTFOyuNNBTxW0iSAzu4K2toZicqX2iR5jAWPa00%3D\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\u0026ts=1792665298"}],"max_age":3600}
+  Reporting-Endpoints: heroku-nel="https://nel.heroku.com/reports?s=U8zkCTFOyuNNBTxW0iSAzu4K2toZicqX2iR5jAWPa00%3D&sid=c4c9725f-1ab0-44d8-820f-430df2718e11&ts=1792665298"
+  Server: cloudflare
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Via: 1.1 heroku-router
+  X-Content-Type-Options: nosniff
+  X-Dns-Prefetch-Control: off
+  X-Download-Options: noopen
+  X-Frame-Options: DENY
+  X-Permitted-Cross-Domain-Policies: none
+  X-Powered-By: ReqRes.in - Deploy backends in 30 seconds
+  X-Ratelimit-Limit: 40
+  X-Ratelimit-Remaining: 32
+  X-Ratelimit-Reset: 1792713600
+  X-Reqres-Docs: https://reqres.in
+  X-Reqres-Message: This API is powered by ReqRes. Deploy your own backend in 30 seconds!
+  X-Reqres-Templates: https://app.reqres.in/templates
+  X-Reqres-Tip: Need more than /api/users? Build custom collections - app.reqres.in/dashboard
+  X-Reqres-Upgrade: https://app.reqres.in/upgrade
+  X-Request-Id: fa5a2cdd-2dff-7a0e-7a31-e77c079febee
+  X-Robots-Tag: noindex, nofollow
+  X-Xss-Protection: 0
+  cf-cache-status: MISS
+  CF-RAY: a4e7da3eff647f4b-MAA
+Response Body (Preview):
+  {"data": {"id": 1, "email": "george.bluth@reqres.in", "first_name": "George", "last_name": "Bluth", "avatar": "https://reqres.in/img/faces/1-image.jpg"}, "support": {"url": "https://reqres.in/go/mcp", "text": "Give your AI agent a real backend with no signup: persistent data and API keys in one call
+------------------------------------------------------------
+
+Endpoint: Resource Metadata [GET /api/unknown]
+HTTP Status: 200
+Response Headers:
+  Date: Thu, 22 Oct 2026 10:34:58 GMT
+  Content-Type: application/json; charset=utf-8
+  Content-Length: 1295
+  Connection: close
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=14400, s-maxage=60
+  Cdn-Cache-Control: max-age=60
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+  Etag: W/"50f-ibOrNlYNYZeS8z740XuyS0GaeuM"
+  Nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+  Origin-Agent-Cluster: ?1
+  Ratelimit-Limit: 100
+  Ratelimit-Policy: 100;w=60
+  Ratelimit-Remaining: 99
+  Ratelimit-Reset: 60
+  Referrer-Policy: strict-origin-when-cross-origin
+  Report-To: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=U8zkCTFOyuNNBTxW0iSAzu4K2toZicqX2iR5jAWPa00%3D\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\u0026ts=1792665298"}],"max_age":3600}
+  Reporting-Endpoints: heroku-nel="https://nel.heroku.com/reports?s=U8zkCTFOyuNNBTxW0iSAzu4K2toZicqX2iR5jAWPa00%3D&sid=c4c9725f-1ab0-44d8-820f-430df2718e11&ts=1792665298"
+  Server: cloudflare
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Via: 1.1 heroku-router
+  X-Content-Type-Options: nosniff
+  X-Dns-Prefetch-Control: off
+  X-Download-Options: noopen
+  X-Frame-Options: DENY
+  X-Permitted-Cross-Domain-Policies: none
+  X-Powered-By: ReqRes.in - Deploy backends in 30 seconds
+  X-Ratelimit-Limit: 40
+  X-Ratelimit-Remaining: 31
+  X-Ratelimit-Reset: 1792713600
+  X-Reqres-Docs: https://reqres.in
+  X-Reqres-Message: This API is powered by ReqRes. Deploy your own backend in 30 seconds!
+  X-Reqres-Templates: https://app.reqres.in/templates
+  X-Reqres-Tip: Create your own backend with persistent data - app.reqres.in/dashboard
+  X-Reqres-Upgrade: https://app.reqres.in/upgrade
+  X-Request-Id: 21d5aeb8-799d-f98f-1882-43523215d8c6
+  X-Robots-Tag: noindex, nofollow
+  X-Xss-Protection: 0
+  Accept-Ranges: bytes
+  cf-cache-status: EXPIRED
+  CF-RAY: a4e7da442fbcb85b-MAA
+Response Body (Preview):
+  {"page": 1, "per_page": 6, "total": 12, "total_pages": 2, "data": [{"id": 1, "name": "cerulean", "year": 2000, "color": "#98B2D1", "pantone_value": "15-4020"}, {"id": 2, "name": "fuchsia rose", "year": 2001, "color": "#C74375", "pantone_value": "17-2031"}, {"id": 3, "name": "true red", "year": 2002,
+------------------------------------------------------------
+
+Endpoint: User Authentication (Simulated Login) [POST /api/login]
+HTTP Status: 200
+Response Headers:
+  Date: Thu, 22 Oct 2026 10:35:00 GMT
+  Content-Type: application/json; charset=utf-8
+  Content-Length: 756
+  Connection: close
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-store
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: cross-origin
+  Etag: W/"2f4-T0GMQhJcGiXwn1/VJgdGisvq5VE"
+  Nel: {"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}
+  Origin-Agent-Cluster: ?1
+  Referrer-Policy: strict-origin-when-cross-origin
+  Report-To: {"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=bbX4pnNqa3h0BflCLbREYQrJEmpw1cma%2BHftaeKtfyI%3D\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\u0026ts=1792665299"}],"max_age":3600}
+  Reporting-Endpoints: heroku-nel="https://nel.heroku.com/reports?s=bbX4pnNqa3h0BflCLbREYQrJEmpw1cma%2BHftaeKtfyI%3D&sid=c4c9725f-1ab0-44d8-820f-430df2718e11&ts=1792665299"
+  Server: cloudflare
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Via: 1.1 heroku-router
+  X-Content-Type-Options: nosniff
+  X-Dns-Prefetch-Control: off
+  X-Download-Options: noopen
+  X-Frame-Options: DENY
+  X-Permitted-Cross-Domain-Policies: none
+  X-Powered-By: ReqRes.in - Deploy backends in 30 seconds
+  X-Ratelimit-Limit: 40
+  X-Ratelimit-Remaining: 30
+  X-Ratelimit-Reset: 1792713600
+  X-Reqres-Docs: https://reqres.in
+  X-Reqres-Message: This API is powered by ReqRes. Deploy your own backend in 30 seconds!
+  X-Reqres-Templates: https://app.reqres.in/templates
+  X-Reqres-Tip: Need more than /api/users? Build custom collections - app.reqres.in/dashboard
+  X-Reqres-Upgrade: https://app.reqres.in/upgrade
+  X-Request-Id: 630c2729-8008-2223-40b4-c8b5ec176036
+  X-Robots-Tag: noindex, nofollow
+  X-Xss-Protection: 0
+  cf-cache-status: DYNAMIC
+  CF-RAY: a4e7da4a384c1203-MAA
+Response Body (Preview):
+  {"token": "QpwL5tke4Pnpja7X4", "support": {"url": "https://reqres.in/go/mcp", "text": "Give your AI agent a real backend with no signup: persistent data and API keys in one call. Add the ReqRes MCP server."}, "_meta": {"powered_by": "ReqRes", "docs_url": "https://app.reqres.in/documentation", "upgra
+------------------------------------------------------------
+

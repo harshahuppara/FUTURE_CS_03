@@ -1,0 +1,96 @@
+﻿{
+  "info": {
+    "name": "ReqRes API Security Audit (Future Interns Task 3)",
+    "_postman_id": "a910284e-7b19-4921-b210-98e3b1238910",
+    "description": "Postman Collection for API Security Risk Analysis on ReqRes API aligned with OWASP API Security Top 10.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01. BOLA Check - Unauthenticated User List",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users?page=1",
+          "protocol": "https",
+          "host": [ "reqres", "in" ],
+          "path": [ "api", "users" ],
+          "query": [ { "key": "page", "value": "1" } ]
+        },
+        "description": "Tests API1:2023 BOLA - Accessing user records without authorization headers."
+      }
+    },
+    {
+      "name": "02. IDOR / Enumeration - User Profile (ID: 2)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users/2",
+          "protocol": "https",
+          "host": [ "reqres", "in" ],
+          "path": [ "api", "users", "2" ]
+        },
+        "description": "Tests predictable sequential ID access to single user object."
+      }
+    },
+    {
+      "name": "03. Authentication - Simulated Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"eve.holt@reqres.in\",\n    \"password\": \"cityslicka\"\n}"
+        },
+        "url": {
+          "raw": "https://reqres.in/api/login",
+          "protocol": "https",
+          "host": [ "reqres", "in" ],
+          "path": [ "api", "login" ]
+        },
+        "description": "Tests API2:2023 Broken Authentication - Checks token format, claims, and cookie flags."
+      }
+    },
+    {
+      "name": "04. Excessive Data Exposure - User Object",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users/1",
+          "protocol": "https",
+          "host": [ "reqres", "in" ],
+          "path": [ "api", "users", "1" ]
+        },
+        "description": "Tests API3:2023 Broken Object Property Level Authorization - Verifies if extra fields are exposed."
+      }
+    },
+    {
+      "name": "05. Security Misconfiguration - CORS Check",
+      "request": {
+        "method": "OPTIONS",
+        "header": [
+          { "key": "Origin", "value": "https://malicious-attacker-domain.com" },
+          { "key": "Access-Control-Request-Method", "value": "GET" }
+        ],
+        "url": {
+          "raw": "https://reqres.in/api/users",
+          "protocol": "https",
+          "host": [ "reqres", "in" ],
+          "path": [ "api", "users" ]
+        },
+        "description": "Tests API7:2023 Security Misconfiguration - Verifies wildcard Access-Control-Allow-Origin: *."
+      }
+    }
+  ]
+}

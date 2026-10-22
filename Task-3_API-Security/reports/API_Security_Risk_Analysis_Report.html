@@ -1,0 +1,453 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Security Risk Analysis Report - ReqRes API</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --primary: #0f172a;
+    --primary-light: #1e293b;
+    --accent: #2563eb;
+    --high: #dc2626;
+    --high-bg: #fee2e2;
+    --medium: #d97706;
+    --medium-bg: #fef3c7;
+    --low: #2563eb;
+    --low-bg: #dbeafe;
+    --border: #e2e8f0;
+    --code-bg: #0f172a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1e293b;
+    background-color: #f8fafc;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 60px 50px;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+  }
+
+  .header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 30px;
+    margin-bottom: 35px;
+  }
+
+  .badge-task {
+    display: inline-block;
+    padding: 4px 14px;
+    background: #eff6ff;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #bfdbfe;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    background: #f8fafc;
+    padding: 18px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .meta-item strong {
+    display: block;
+    color: #64748b;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  h2 {
+    font-size: 20px;
+    color: var(--primary);
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  p { margin-bottom: 14px; font-size: 14px; color: #334155; }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+  }
+
+  .metric-card {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+
+  .metric-card.total { background: #f8fafc; }
+  .metric-card.high { background: var(--high-bg); border-color: #fca5a5; }
+  .metric-card.medium { background: var(--medium-bg); border-color: #fcd34d; }
+  .metric-card.low { background: var(--low-bg); border-color: #93c5fd; }
+
+  .metric-number {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .metric-card.total .metric-number { color: var(--primary); }
+  .metric-card.high .metric-number { color: var(--high); }
+  .metric-card.medium .metric-number { color: var(--medium); }
+  .metric-card.low .metric-number { color: var(--low); }
+
+  .metric-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 12px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
+  }
+
+  th {
+    background: #f8fafc;
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  .badge-sev {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  .sev-high { background: var(--high-bg); color: var(--high); }
+  .sev-medium { background: var(--medium-bg); color: var(--medium); }
+  .sev-low { background: var(--low-bg); color: var(--low); }
+
+  /* Vulnerability Cards */
+  .vuln-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px;
+    margin-bottom: 24px;
+    background: #fff;
+    page-break-inside: avoid;
+  }
+
+  .vuln-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 10px;
+  }
+
+  .vuln-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .code-box {
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    margin: 10px 0;
+    line-height: 1.5;
+  }
+
+  .remediation-box {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+    padding: 12px 14px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 13px;
+  }
+
+  .remediation-box strong { color: #15803d; }
+
+  .print-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(37,99,235,0.3);
+    cursor: pointer;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { max-width: 100%; box-shadow: none; padding: 15px; }
+    .print-btn { display: none; }
+    .vuln-card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span class="badge-task">Future Interns — Cyber Security Internship (Task 3)</span>
+    <h1>API Security Risk Analysis Report</h1>
+    <div class="subtitle">OWASP API Security Top 10 (2023) Audit & Vulnerability Assessment for SaaS APIs</div>
+    
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Target Platform</strong>
+        ReqRes API (https://reqres.in)
+      </div>
+      <div class="meta-item">
+        <strong>Assessment Framework</strong>
+        OWASP API Security Top 10
+      </div>
+      <div class="meta-item">
+        <strong>Testing Mode</strong>
+        Passive & Non-Intrusive (Read-Only)
+      </div>
+      <div class="meta-item">
+        <strong>Lead Assessor</strong>
+        Harsha H (AppSec Intern)
+      </div>
+    </div>
+  </div>
+
+  <h2>1. Executive Summary</h2>
+  <p>
+    Modern applications rely predominantly on REST and GraphQL APIs to power mobile clients, web dashboards, and third-party SaaS integrations. While APIs enable rapid product development, they frequently expose underlying data structures directly to the public web.
+  </p>
+  <p>
+    A read-only API Security Assessment was performed against the <strong>ReqRes API</strong> platform. The evaluation examined endpoint authorization, token hygiene, Cross-Origin Resource Sharing (CORS), and data exposure.
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card total">
+      <div class="metric-number">5</div>
+      <div class="metric-label">Endpoints Tested</div>
+    </div>
+    <div class="metric-card high">
+      <div class="metric-number">1</div>
+      <div class="metric-label">High Severity (BOLA)</div>
+    </div>
+    <div class="metric-card medium">
+      <div class="metric-number">3</div>
+      <div class="metric-label">Medium Severity</div>
+    </div>
+    <div class="metric-card low">
+      <div class="metric-number">1</div>
+      <div class="metric-label">Low Severity</div>
+    </div>
+  </div>
+
+  <h2>2. OWASP API Security Findings Matrix</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Finding ID</th>
+        <th>OWASP Category</th>
+        <th>Risk Title</th>
+        <th>Severity</th>
+        <th>CVSS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>SEC-API-01</strong></td>
+        <td>API1:2023 BOLA</td>
+        <td>Broken Object Level Authorization (Sequential ID Access)</td>
+        <td><span class="badge-sev sev-high">High</span></td>
+        <td>7.5</td>
+      </tr>
+      <tr>
+        <td><strong>SEC-API-02</strong></td>
+        <td>API2:2023 Broken Auth</td>
+        <td>Opaque Token Generation Lacking Expiry & Signatures</td>
+        <td><span class="badge-sev sev-medium">Medium</span></td>
+        <td>6.5</td>
+      </tr>
+      <tr>
+        <td><strong>SEC-API-03</strong></td>
+        <td>API3:2023 Property Level</td>
+        <td>Excessive Data Exposure in User Resource Responses</td>
+        <td><span class="badge-sev sev-medium">Medium</span></td>
+        <td>5.3</td>
+      </tr>
+      <tr>
+        <td><strong>SEC-API-04</strong></td>
+        <td>API7:2023 Misconfig</td>
+        <td>Overly Permissive CORS Policy (Access-Control-Allow-Origin: *)</td>
+        <td><span class="badge-sev sev-medium">Medium</span></td>
+        <td>5.3</td>
+      </tr>
+      <tr>
+        <td><strong>SEC-API-05</strong></td>
+        <td>API7:2023 Misconfig</td>
+        <td>Infrastructure Information Disclosure via Response Headers</td>
+        <td><span class="badge-sev sev-low">Low</span></td>
+        <td>3.3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. In-Depth Technical Findings</h2>
+
+  <!-- FINDING 1 -->
+  <div class="vuln-card">
+    <div class="vuln-header">
+      <div class="vuln-title">SEC-API-01: Broken Object Level Authorization (BOLA / IDOR)</div>
+      <span class="badge-sev sev-high">High Severity (CVSS 7.5)</span>
+    </div>
+    <p><strong>OWASP Category:</strong> API1:2023 Broken Object Level Authorization</p>
+    <p><strong>Business Impact:</strong> Unauthenticated callers can harvest all registered customer profiles by iterating sequential numerical IDs (e.g., <code>/api/users/1</code>, <code>/api/users/2</code>), causing mass data exfiltration and violating GDPR data privacy mandates.</p>
+    <div class="code-box">GET /api/users/2 HTTP/1.1
+Host: reqres.in
+[No Authorization Header Provided]
+
+HTTP/1.1 200 OK
+{
+  "data": {
+    "id": 2,
+    "email": "janet.weaver@reqres.in",
+    "first_name": "Janet",
+    "last_name": "Weaver"
+  }
+}</div>
+    <div class="remediation-box">
+      <strong>Remediation:</strong> Mandate Bearer token validation on all object-level endpoints. Enforce record ownership verification and replace sequential IDs with non-guessable UUIDv4 strings.
+    </div>
+  </div>
+
+  <!-- FINDING 2 -->
+  <div class="vuln-card">
+    <div class="vuln-header">
+      <div class="vuln-title">SEC-API-02: Broken Authentication & Weak Token Hygiene</div>
+      <span class="badge-sev sev-medium">Medium Severity (CVSS 6.5)</span>
+    </div>
+    <p><strong>OWASP Category:</strong> API2:2023 Broken Authentication</p>
+    <p><strong>Business Impact:</strong> The login endpoint generates static string tokens without cryptographic signatures or expiration timestamps. If intercepted, tokens grant indefinite access and are vulnerable to client-side script theft.</p>
+    <div class="code-box">POST /api/login HTTP/1.1
+{"email": "eve.holt@reqres.in", "password": "cityslicka"}
+
+HTTP/1.1 200 OK
+{"token": "QpwL5tke4Pnpja7X4"}  <-- [Static, unsigned, non-expiring token]</div>
+    <div class="remediation-box">
+      <strong>Remediation:</strong> Implement RFC 7519 JSON Web Tokens (JWT) signed with RS256, enforce short expiration windows (15 minutes), and return tokens in <code>HttpOnly; Secure; SameSite=Strict</code> cookies.
+    </div>
+  </div>
+
+  <!-- FINDING 3 -->
+  <div class="vuln-card">
+    <div class="vuln-header">
+      <div class="vuln-title">SEC-API-03: Excessive Data Exposure in User Resource Responses</div>
+      <span class="badge-sev sev-medium">Medium Severity (CVSS 5.3)</span>
+    </div>
+    <p><strong>OWASP Category:</strong> API3:2023 Broken Object Property Level Authorization</p>
+    <p><strong>Business Impact:</strong> Endpoints return full internal object properties without data transfer object (DTO) filtering, relying on frontend clients to filter fields.</p>
+    <div class="remediation-box">
+      <strong>Remediation:</strong> Define explicit response Data Transfer Objects (DTOs) and API schemas to ensure only necessary public attributes are serialized to clients.
+    </div>
+  </div>
+
+  <!-- FINDING 4 -->
+  <div class="vuln-card">
+    <div class="vuln-header">
+      <div class="vuln-title">SEC-API-04: Overly Permissive CORS Policy (Access-Control-Allow-Origin: *)</div>
+      <span class="badge-sev sev-medium">Medium Severity (CVSS 5.3)</span>
+    </div>
+    <p><strong>OWASP Category:</strong> API7:2023 Security Misconfiguration</p>
+    <p><strong>Business Impact:</strong> Setting wildcard CORS allows malicious third-party websites in an authenticated victim's browser to read API responses across origins.</p>
+    <div class="code-box">Access-Control-Allow-Origin: *</div>
+    <div class="remediation-box">
+      <strong>Remediation:</strong> Replace wildcard <code>*</code> with an explicit whitelist of trusted frontend origins (e.g., <code>https://app.reqres.in</code>).
+    </div>
+  </div>
+
+  <h2>4. Phased Remediation Roadmap</h2>
+  <div class="code-box">
+Phase 1: Immediate Sprint (Within 1-2 Weeks)
+  • Require Bearer token authentication across all user endpoints (SEC-API-01)
+  • Restrict CORS Access-Control-Allow-Origin to trusted origin domains (SEC-API-04)
+
+Phase 2: Authentication Hardening (Month 1)
+  • Replace static tokens with RS256-signed JWTs with 15-minute expiration (SEC-API-02)
+  • Deliver session tokens via Secure, HttpOnly, SameSite=Strict cookies
+
+Phase 3: Data Architecture & Posture (Quarter 1)
+  • Migrate database schemas from sequential integer IDs to UUIDv4 (SEC-API-01)
+  • Implement DTO serialization to prevent excessive data exposure (SEC-API-03)
+  • Enforce API rate limiting (RateLimit-Limit: 100/min per IP/Token)
+  </div>
+
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: #64748b; display: flex; justify-content: space-between;">
+    <span>Future Interns — Cyber Security Internship Task 3</span>
+    <span>Assessor: Harsha H</span>
+  </div>
+</div>
+
+<button class="print-btn" onclick="window.print()">
+  🖨️ Print / Save as PDF
+</button>
+
+</body>
+</html>

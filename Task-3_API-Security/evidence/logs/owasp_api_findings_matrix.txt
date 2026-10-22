@@ -1,0 +1,40 @@
+============================================================
+OWASP API SECURITY TOP 10 FINDINGS MATRIX
+Target: https://reqres.in
+============================================================
+
+Finding #1: [HIGH] Unrestricted / Unauthenticated Object Access via Predictable IDs
+Category:    API1:2023 Broken Object Level Authorization
+CVSS Score:  7.5
+Endpoints:   GET /api/users, GET /api/users/2, GET /api/users/1
+Description: User profiles and customer records are exposed to public, unauthenticated callers without Bearer token or session validation. Furthermore, IDs are predictable integers (1, 2, 3), allowing automated mass enumeration and database scraping.
+Remediation: Mandate Bearer token authentication across all user-facing endpoints. Enforce user-level authorization checks ensuring callers can only query their own account object, and migrate from sequential IDs to non-sequential UUIDv4.
+
+Finding #2: [MEDIUM] Overly Permissive Cross-Origin Resource Sharing (CORS: *)
+Category:    API7:2023 Security Misconfiguration
+CVSS Score:  5.3
+Endpoints:   All Endpoints (*.reqres.in)
+Description: The API returns 'Access-Control-Allow-Origin: *', permitting any third-party malicious website running in an authenticated user's browser to read API responses.
+Remediation: Restrict the CORS Access-Control-Allow-Origin header strictly to trusted, whitelisted domain names rather than the wildcard '*'.
+
+Finding #3: [LOW] Backend Technology & Infrastructure Information Disclosure
+Category:    API7:2023 Security Misconfiguration
+CVSS Score:  3.3
+Endpoints:   All Endpoints
+Description: The API leaks backend routing and hosting metadata via HTTP response headers: 'ReqRes.in - Deploy backends in 30 seconds', aiding attackers in targeted footprinting.
+Remediation: Suppress 'X-Powered-By' and internal routing headers in reverse proxy and API gateway configuration.
+
+Finding #4: [MEDIUM] Weak & Opaque Authentication Token Generation
+Category:    API2:2023 Broken Authentication
+CVSS Score:  6.5
+Endpoints:   POST /api/login, POST /api/register
+Description: The login endpoint returns a simple, static token string lacking cryptographic signatures, expiration timestamps (exp claims), and scope definitions. Tokens are not transmitted via Secure; HttpOnly cookies, risking client-side script theft (XSS).
+Remediation: Implement digitally signed JSON Web Tokens (JWT) adhering to RFC 7519 with strong signing algorithms (RS256/ES256), short-lived expiration windows (15 minutes), and secure refresh token rotation.
+
+Finding #5: [MEDIUM] Excessive Data Exposure in User Resource Responses
+Category:    API3:2023 Broken Object Property Level Authorization
+CVSS Score:  5.3
+Endpoints:   GET /api/users, GET /api/users/2
+Description: API responses return complete internal user object trees (internal IDs, email addresses, avatars) to all callers. If additional properties (e.g., role, phone, internal status) are stored in the data model, they are susceptible to mass assignment and over-fetching.
+Remediation: Implement strict response data Transfer Objects (DTOs) and API schema filtering. Ensure endpoints only return the specific fields strictly required by the client.
+
